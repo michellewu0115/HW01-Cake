@@ -18,25 +18,40 @@ void eliminate(int n, int k)
       fprintf(stderr, "malloc fail\n");
       return;
     }
-  // initialize all elements
-  // You may initialize the elements to a number of your choice (e.g., 0)
+   // Initialize all elements to 0 (0 means "not eliminated")
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = 0;
+    }
 
+    // 'pos' is our current position in the circle
+    int pos = 0;
 
-  
-  // counting to k,
-  // mark the eliminated element; you choose the mark (e.g., 1)
-  // print the index of the marked element
-  // repeat until only one element is unmarked
-
-
-
-
-  // print the last remaining index
-
-
-
-
-  // release the memory of the array
+    
+    for (int i = 0; i < n; i++)
+    {
+        int count = 0;
+        while (1)  
+        {
+            // If this position is not eliminated, count it
+            if (arr[pos] == 0)
+            {
+                count++;
+                // If we have counted up to k, eliminate this position
+                if (count == k)
+                {
+                    arr[pos] = 1;     // Mark eliminated
+                    printf("%d\n", pos);
+                    // Move one step beyond this position before breaking,
+                    // so the next elimination starts counting from the next spot.
+                    pos = (pos + 1) % n;
+                    break;
+                }
+            }
+            // Move to the next position in the circle
+            pos = (pos + 1) % n;
+        }
+    }
   free (arr);
 }
 
